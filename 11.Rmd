@@ -1,4 +1,4 @@
-# Getting started
+# Forecasting hierarchical and grouped time series
 
 **Learning objectives:**
 

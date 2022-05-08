@@ -1,4 +1,4 @@
-# Getting started
+# ARIMA models
 
 **Learning objectives:**
 
