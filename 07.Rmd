@@ -1,4 +1,4 @@
-# Getting started
+# Time series regression models
 
 **Learning objectives:**
 

@@ -5,5 +5,8 @@
 .DS_Store
 _book
 _bookdown_files
-bookclub-BOOKABBR.Rmd
-bookclub-BOOKABBR_files
+bookclub-fpp.Rmd
+bookclub-fpp.knit.md
+bookclub-fpp_files
+libs
+*.html
