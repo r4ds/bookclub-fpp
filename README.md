@@ -3,23 +3,14 @@
 Welcome to the R4DS Forecasting: Principles and Practice Book Club!
 
 We are working together to read [_Forecasting: Principles and Practice_](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (OTexts: Melbourne, Australia, copyright 2021, 978-0987507136).
-Join the #book_club-fpp channel on the [R4DS Slack](https://r4ds.io/join) to participate.
+Join the [#book_club-fpp](https://rfordatascience.slack.com/archives/C03CXSNDVJM) channel on the [R4DS Slack](https://r4ds.io/join) to participate.
 As we read, we are producing [notes about the book](https://r4ds.io/fpp).
 
 ## Meeting Schedule
 
-If you would like to present, please add your name next to a chapter using the [GitHub Web Editor](https://youtu.be/d41oc2OMAuI)!
+If you would like to present, please see the sign-up sheet for your cohort (linked below, and pinned in the [#book_club-fpp](https://rfordatascience.slack.com/archives/C03CXSNDVJM) channel on Slack)!
 
-*Cohort 1: Sundays, 13:00 CST/CDT*
-
-<details>
-  <summary> Past Meetings </summary>
-  
-(none yet)
-</details>
-
-- 2022-05-15: Introduction - Mikhael Manurung
-- 2022-05-22: Chapter XX (TITLE) - Presenter TBD
+- [Cohort 1](https://docs.google.com/spreadsheets/d/1zJsaeQxcYvXXXbY-rfLm0KBT4pTB-kQC_koy6tLxe5o/edit?usp=sharing) (started STARTDATE): [Sundays, 13:00 CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20220515T180000&p1=24&p2=16) | [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGiw2WcRTHAhBBwzlFB8YoC3)
 
 
 <hr>
