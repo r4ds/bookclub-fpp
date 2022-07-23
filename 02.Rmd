@@ -13,12 +13,14 @@
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/W9_G40xaNEc")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:25:26	Ricardo Serrano:	https://robjhyndman.com/hyndsight/cyclicts/
 ```
 </details>
+
+`r knitr::include_url("https://www.youtube.com/embed/W_uQc5YSwog")`

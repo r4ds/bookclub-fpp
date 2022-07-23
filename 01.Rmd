@@ -13,12 +13,19 @@
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/80D6nckRG1s")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:04:03	Ricardo Serrano:	Hello!
+00:07:24	Ricardo Serrano:	I’m participating in the ISLR book club, and the format that we are using is two sessions per chapter (one to discuss the theory and the other to discuss the lab exercises). It allows for more participation of all members and discuss doubts/answer questions.
+00:08:43	Ricardo Serrano:	i'll be out for a while. Picture time.
+00:14:08	Ricardo Serrano:	I'm back.
+00:15:23	Ricardo Serrano:	How many people are in this cohort?
+00:23:32	kevin kent:	Once we work through the book a little, I Was thinking of trying out the m* forecasting competition that he references. When I last looked, it runs for the whole year (I believe)
+00:47:10	Mikhael Manurung:	https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction
+00:47:23	kevin kent:	https://m6competition.com
 ```
 </details>

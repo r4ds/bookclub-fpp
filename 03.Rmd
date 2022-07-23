@@ -13,12 +13,22 @@
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/IFv8OmMcfck")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:35:33	kevin kent:	Anomalize package which I mentioned. Has a method that uses STL and does anomaly detection on the remainder (by Matt Dancho) https://cran.r-project.org/web/packages/anomalize/vignettes/anomalize_quick_start_guide.html
+```
+</details>
+
+`r knitr::include_url("https://www.youtube.com/embed/J2YWrDR3fF8")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:23:55	Ricardo Serrano:	https://rdrr.io/cran/fpp/man/melsyd.html
 ```
 </details>
