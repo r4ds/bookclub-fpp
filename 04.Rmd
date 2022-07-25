@@ -252,7 +252,7 @@ Source: Izenman, A. J. (2008). Modern multivariate statistical techniques: Regre
 
 ### Cohort 1
 
-`r knitr::include_url(https://www.youtube.com/embed/J2YWrDR3fF8")`
+`r knitr::include_url("https://www.youtube.com/embed/J2YWrDR3fF8")`
 
 <details>
 <summary> Meeting chat log </summary>
