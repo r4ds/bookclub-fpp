@@ -13,12 +13,15 @@
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/z1DY5xzHUKY")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:43:42	Ricardo Serrano:	In modeltime package, there is a pull_modeltime_residuals() function that looks promising for residual diagnostics.
+00:48:07	Kevin Kent:	cool!
+01:10:15	Mikhael Manurung:	Noted!
+01:13:51	Federica Gazzelloni:	thank you
 ```
 </details>
