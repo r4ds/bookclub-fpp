@@ -10,7 +10,7 @@ As we read, we are producing [notes about the book](https://r4ds.io/fpp).
 
 If you would like to present, please see the sign-up sheet for your cohort (linked below, and pinned in the [#book_club-fpp](https://rfordatascience.slack.com/archives/C03CXSNDVJM) channel on Slack)!
 
-- [Cohort 1](https://docs.google.com/spreadsheets/d/1zJsaeQxcYvXXXbY-rfLm0KBT4pTB-kQC_koy6tLxe5o/edit?usp=sharing) (started STARTDATE): [Sundays, 13:00 CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20220515T180000&p1=24&p2=16) | [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGiw2WcRTHAhBBwzlFB8YoC3)
+- Cohort 1 (ended 2022-08-29 in Chapter 5): [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGiw2WcRTHAhBBwzlFB8YoC3)
 
 
 <hr>
