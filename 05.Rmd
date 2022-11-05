@@ -25,3 +25,18 @@
 01:13:51	Federica Gazzelloni:	thank you
 ```
 </details>
+
+
+<!--
+### Cohort 2
+
+`r knitr::include_url("https://www.youtube.com/embed/URL")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+LOG
+```
+</details>
+-->
