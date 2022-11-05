@@ -249,3 +249,18 @@ Source: Izenman, A. J. (2008). Modern multivariate statistical techniques: Regre
 00:23:41	Ricardo Serrano:	PCA video https://youtu.be/4tm4_pTBudA
 ```
 </details>
+
+
+<!--
+### Cohort 2
+
+`r knitr::include_url("https://www.youtube.com/embed/URL")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+LOG
+```
+</details>
+-->

@@ -24,3 +24,18 @@
 </details>
 
 `r knitr::include_url("https://www.youtube.com/embed/W_uQc5YSwog")`
+
+
+<!--
+### Cohort 2
+
+`r knitr::include_url("https://www.youtube.com/embed/URL")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+LOG
+```
+</details>
+-->
