@@ -11,7 +11,7 @@ As we read, we are producing [notes about the book](https://r4ds.io/fpp).
 If you would like to present, please see the sign-up sheet for your cohort (linked below, and pinned in the [#book_club-fpp](https://rfordatascience.slack.com/archives/C03CXSNDVJM) channel on Slack)!
 
 - Cohort 1 (ended 2022-08-29 in Chapter 5): [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGiw2WcRTHAhBBwzlFB8YoC3)
-- [Cohort 2](https://docs.google.com/spreadsheets/d/1SA-2MInQ2eO_6Pw9z8dFuhEkp7DVEczkF1t1n4sN7sU/edit?usp=sharing) (started TBD): [WEEKDAY, HOUR:00 CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20221024T210000&p1=24&p2=1440) | [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGjPcvxmWqvKqpmInYhpheTT)
+- [Cohort 2](https://docs.google.com/spreadsheets/d/1SA-2MInQ2eO_6Pw9z8dFuhEkp7DVEczkF1t1n4sN7sU/edit?usp=sharing) (started 2022-12-02): [Fridays, 13:00 CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20221202T190000&p1=179&p2=24&p3=1440) | [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGjPcvxmWqvKqpmInYhpheTT)
 
 <hr>
 
@@ -23,13 +23,8 @@ To present, follow these instructions:
 
 Do these steps once:
 
-1. [Setup Github Locally](https://www.youtube.com/watch?v=hNUNPkoledI) (also see [_Happy Git and GitHub for the useR_](https://happygitwithr.com/github-acct.html))
-2. Install {usethis} and {devtools} `install.packages(c("usethis", "devtools"))`
-3. Set up a default {usethis} directory:
-  - `usethis::edit_r_profile()` to open your profile for editing.
-  - Add this line: `options(usethis.destdir = "YOURDIR")` (replace `YOURDIR` with the root directory under which you want your R projects to appear; or you can skip these steps, and the project will be saved to your Desktop).
-  - Restart your R session (Session/Restart R in Rstudio).
-4. `usethis::create_from_github("r4ds/bookclub-fpp")` (cleanly creates your own copy of this repository).
+1. [Setup Git and GitHub to work with RStudio](https://github.com/r4ds/bookclub-setup) (click through for detailed, step-by-step instructions; I recommend checking this out even if you're pretty sure you're all set).
+2. `usethis::create_from_github("r4ds/bookclub-fpp")` (cleanly creates your own copy of this repository).
 
 Do these steps each time you present another chapter:
 
