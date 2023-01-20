@@ -14,8 +14,12 @@ Depends:
 Imports: 
     bookdown,
     rmarkdown,
-    tidyverse, 
-    fpp3, 
-    broom, 
+    tidyverse,
+    fpp3,
+    broom,
     glue,
-    GGally
+    GGally,
+    latex2exp,
+    ggthemes,
+    slider,
+    seasonal
