@@ -118,7 +118,6 @@ components(dcmp) %>%
     ?components
     methods("components")
 
-
 ```{r}
 components(dcmp) %>%
   as_tsibble()%>%
@@ -126,9 +125,8 @@ components(dcmp) %>%
   head
 ```
 
-
 ```{r message=FALSE, warning=FALSE}
-components(dcmp) %>%# autoplot()
+components(dcmp) %>%
   as_tsibble() %>%
   autoplot(Employed, colour="grey80") +
   geom_line(aes(y=trend), colour = "navy",linewidth=2,alpha=0.5) +
@@ -203,7 +201,6 @@ When 2-MA follows a moving average of an even order (such as 4), it is called a 
 
 The most common use of **centred moving averages** is for **estimating the trend-cycle from seasonal data**.
 
-
 ```{r}
 beer_ma <- aus_production %>%
   filter(year(Quarter) >= 1992) %>%
@@ -221,7 +218,6 @@ beer_ma %>%head
 
 Combinations of moving averages result in weighted moving averages.
 
-
 Weights: $a_k=[\frac{1}{8},\frac{1}{4},\frac{1}{4},\frac{1}{4},\frac{1}{8}]$
 
 k: $k=(m-1)/2$
@@ -230,8 +226,7 @@ $$\hat{T_t}=\sum_{j=-k}^k{a_jy_{t+j}}$$
 
 ### Additive decomposition
 
-In **additive decomposition** is assumed that the seasonal component is constant from year to year. 
-
+In **additive decomposition**, it is assumed that the seasonal component is constant from year to year. 
 
 1. $$m=\left\{\begin{matrix}
  2\times m-MA &  \text{if m is even}\\ 
