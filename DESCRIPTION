@@ -23,4 +23,5 @@ Imports:
     ggthemes,
     slider,
     seasonal,
-    forecast
+    forecast,
+    patchwork
