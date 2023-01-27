@@ -98,6 +98,7 @@ Some interesting information about the **STL model**:
 
 More info here: [R. B. Cleveland et al. (1990)](https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf)
 
+[from the book](https://otexts.com/fpp3/stl.html)
 
 The command used is:
 
@@ -125,6 +126,9 @@ components(dcmp) %>%
   ggthemes::theme_pander()
 ```
 
+    ?components
+    methods("components")
+
 ```{r}
 components(dcmp) %>%
   as_tsibble()%>%
@@ -132,13 +136,12 @@ components(dcmp) %>%
   head
 ```
 
-
-```{r}
+```{r message=FALSE, warning=FALSE}
 components(dcmp) %>%
   as_tsibble() %>%
   autoplot(Employed, colour="grey80") +
-  geom_line(aes(y=trend), colour = "navy",size=2,alpha=0.5) +
-  geom_line(aes(y=season_adjust), colour = "red",size=0.3) +
+  geom_line(aes(y=trend), colour = "navy",linewidth=2,alpha=0.5) +
+  geom_line(aes(y=season_adjust), colour = "red",linewidth=0.3) +
   # geom_line(aes(y=remainder), colour = "blue") +
   labs(y = "Persons (thousands)",x="Year-Mon",
        title = "Total employment in US retail")+
@@ -149,15 +152,20 @@ components(dcmp) %>%
 
 ## Classical decompositions
 
-A classical decomposition method is the **moving average method** to estimate the trend-cycle.
+A classical decomposition method is the **moving average method** to estimate the trend-cycle. It originated in the 1920s and was widely used until the 1950s.
+
 
 ### Moving average smoothing
 
-A moving average of order *m*:
+A moving average of order *m*: seasonal period  
 
 $$m=2k+1$$
 
-composed of seasonal patterns estimated based on **k** consecutive seasonal cycles, where k controls how rapidly the seasonal component can change.
+composed of seasonal patterns estimated based on **k** consecutive seasonal cycles, where $k$ controls how rapidly the component can change.
+
+The estimate of the **trend-cycle** at time $t$ is obtained by averaging values of the time series within $k$ periods of $t$.
+
+> the average eliminates some of the randomness
 
 $$\hat{T_t}=\frac{1}{m}\sum_{j=-k}^k{y_{t+j}}$$
 ```{r}
@@ -202,6 +210,7 @@ aus_exports %>%
 
 When 2-MA follows a moving average of an even order (such as 4), it is called a “centered moving average of order 4”
 
+The most common use of **centred moving averages** is for **estimating the trend-cycle from seasonal data**.
 
 ```{r}
 beer_ma <- aus_production %>%
@@ -218,14 +227,17 @@ beer_ma %>%head
 
 ### Weighted moving averages
 
+Combinations of moving averages result in weighted moving averages.
 
-Weights: $[\frac{1}{8},\frac{1}{4},\frac{1}{4},\frac{1}{4},\frac{1}{8}]$
+Weights: $a_k=[\frac{1}{8},\frac{1}{4},\frac{1}{4},\frac{1}{4},\frac{1}{8}]$
 
 k: $k=(m-1)/2$
 
 $$\hat{T_t}=\sum_{j=-k}^k{a_jy_{t+j}}$$
 
 ### Additive decomposition
+
+In **additive decomposition**, it is assumed that the seasonal component is constant from year to year. 
 
 1. $$m=\left\{\begin{matrix}
  2\times m-MA &  \text{if m is even}\\ 
@@ -238,7 +250,14 @@ $$\hat{T_t}=\sum_{j=-k}^k{a_jy_{t+j}}$$
 
 4.  $R_t=y_t-\hat{T_t}-\hat{S_t}$
 
+Formula:
+
+    ?classical_decomposition
+    model(classical_decomposition(<variable>, type = "additive"))
+
 ### Multiplicative decomposition
+
+For **multiplicative seasonality**, the $m$ values that form the seasonal component are sometimes called the “seasonal indices”.
 
 1. $$m=\left\{\begin{matrix}
  2\times m-MA &  \text{if m is even}\\ 
