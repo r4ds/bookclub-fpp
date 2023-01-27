@@ -22,4 +22,6 @@ Imports:
     latex2exp,
     ggthemes,
     slider,
-    seasonal
+    seasonal,
+    forecast,
+    patchwork

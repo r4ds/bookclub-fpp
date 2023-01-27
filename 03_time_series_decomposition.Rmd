@@ -18,6 +18,8 @@ To simplify the patterns in the historical data by removing known sources of var
 
 [Features by package](https://fabletools.tidyverts.org/reference/features_by_pkg.html)
 [Guerrero's method for Box Cox lambda selection](https://feasts.tidyverts.org/reference/guerrero.html)
+
+
 ```{r message=FALSE, warning=FALSE}
 library(fpp3)
 
@@ -76,7 +78,9 @@ us_employment%>%head
 ```
 
 
-Decomposition with **STL decomposition method**: Seasonal and Trend decomposition using Loess.
+#### STL decomposition method
+
+Seasonal and Trend decomposition using Loess.
 
 [STL produces a smoother trend than classical decomposition methods due to the use of local polynomial regression.](https://arxiv.org/pdf/2204.10398.pdf)
 
@@ -99,6 +103,13 @@ More info here: [R. B. Cleveland et al. (1990)](https://www.scb.se/contentassets
 The command used is:
 
      model(stl = STL(<formula>))
+
+```{r}
+us_employment%>% #year(Month) >= 1990, 
+  filter(Title == "Retail Trade") %>%
+  select(-Series_ID) %>%
+  autoplot()
+```
 
 ```{r}
 us_retail_employment <- us_employment %>%
@@ -326,9 +337,228 @@ autoplot(seats_dcmp) +
 
 ## Exercises
 
-See this Rpub post: [https://rpubs.com/GehadGad/868705](https://rpubs.com/GehadGad/868705)
+- [Ricardo Serrano: https://github.com/rserran/fpp3_exercises](https://github.com/rserran/fpp3_exercises)
 
 
+
+### Exercise 5
+
+For the following series, find an appropriate **Box-Cox transformation** in order *to stabilise the variance*.
+
+> The Box-Cox transformation uses a separate estimation procedure prior to the logistic regression model that can put the predictors on a new scale. ([http://www.feat.engineering/a-simple-example.html](http://www.feat.engineering/a-simple-example.html))
+The estimation procedure recommended that both predictors should be used on the inverse scale (i.e., 1/A instead of A).
+
+<center>Engineering Numeric Predictors</center>
+<center>![](images/ch3_boxcox.png)</center>
+<center>[section of the book for more info](http://www.feat.engineering/numeric-one-to-one.html)</center>
+
+<br>
+
+**Data to use:**
+
+- Tobacco from aus_production
+- Economy class passengers between Melbourne and Sydney from ansett
+- Pedestrian counts at Southern Cross Station from pedestrian.
+
+
+#### Tobacco from aus_production
+
+To find an appropriate **Box-Cox transformation** we use the **Guerrero** method to set the $\lambda$ value.
+    
+    ?features
+    features(Tobacco, features = guerrero) %>%
+                   pull(lambda_guerrero)
+                   
+                   
+```{r}
+lambda_tobacco <- aus_production %>%
+                   features(Tobacco, features = guerrero) %>%
+                   pull(lambda_guerrero)
+lambda_tobacco
+```
+
+```{r}
+Tobacco <- aus_production %>%
+  select(Quarter, Tobacco)%>%
+  filter(!is.na(Tobacco))
+```
+
+
+```{r}
+box_cox(Tobacco$Tobacco, lambda_tobacco)%>%head
+```
+
+
+```{r}
+Tobacco %>%
+  autoplot(box_cox(Tobacco, lambda_tobacco)) +
+  labs(title=paste("Lambda with feature function method Guerrero =",
+                   round(lambda_tobacco,4)),
+       x="Time(Quarters)",y="Tobacco values - box_cox transf")
+```
+
+
+with [forecast](https://pkg.robjhyndman.com/forecast/reference/BoxCox.lambda.html) package:
+
+    BoxCox.lambda()
+    
+with **Guerrero method** set: $\lambda$ = 0.7099289
+    
+```{r message=FALSE, warning=FALSE}
+library(forecast)
+# Tobacco
+fc_lambda <- BoxCox.lambda(Tobacco$Tobacco,method = "guerrero",
+                                                      lower=0)
+fc_lambda
+```
+```{r}
+Tobacco %>%
+autoplot(box_cox(Tobacco, lambda = fc_lambda)) +
+  labs(title=paste("Lambda with forecast method Guerrero =",
+                   round(fc_lambda,4)),
+       x="Time(Quarters)",y="Tobacco values - box_cox transf")
+```
+
+with **TidyModels**
+
+    library(tidymodels)
+    recipe(Tobacco~.,Tobacco)%>%
+    step_BoxCox(Tobacco,lambdas = fc_lambda)%>%
+    prep()%>%
+    juice() %>%
+    as_tsibble() %>%
+    autoplot(Tobacco)+
+    labs(title="Box-Cox transformed")
+  
+```{r message=FALSE, warning=FALSE}
+p <- Tobacco %>%
+  autoplot(Tobacco)+
+  labs(title="Original data")
+p1 <- Tobacco %>%
+autoplot(box_cox(Tobacco, lambda = fc_lambda)) +
+  labs(title=paste("Lambda with forecast method Guerrero =",
+                   round(fc_lambda,4)),
+       x="Time(Quarters)",y="Tobacco values - box_cox transf")
+
+
+library(patchwork)
+p|p1
+```
+
+
+
+
+#### Economy class passengers between Melbourne and Sydney from ansett
+```{r}
+lambda_class <- ansett %>%
+                 filter(Class == "Economy",
+                        Airports == "MEL-SYD")%>%
+                 features(Passengers, features = guerrero) %>%
+                 pull(lambda_guerrero)
+ansett %>%
+  filter(Class == "Economy",
+         Airports == "MEL-SYD")%>%
+  mutate(Passengers = Passengers/1000) %>%
+  autoplot(box_cox(Passengers, lambda = lambda_class)) 
+```
+
+#### Pedestrian counts at Southern Cross Station from pedestrian
+```{r}
+lambda_count <- pedestrian %>%
+                filter(Sensor == "Southern Cross Station") %>%
+                 features(Count, features = guerrero) %>%
+                 pull(lambda_guerrero)
+pedestrian %>%
+  filter(Sensor == "Southern Cross Station") %>%
+  autoplot(box_cox(Count,lambda_count))
+```
+
+
+
+### Exrecise 10
+
+This exercise uses the **canadian_gas data** (monthly Canadian gas production in billions of cubic metres, January 1960 – February 2005).
+
+Plot the data using autoplot(), gg_subseries() and gg_season() to look at the effect of the changing seasonality over time.
+
+Do an **STL decomposition** of the data. 
+You will need to **choose a seasonal window** to allow for the changing shape of the seasonal component.
+
+- How does the seasonal shape change over time? 
+[Hint: Try plotting the seasonal component using gg_season().]
+- **Can you produce a plausible seasonally adjusted series?**
+- Compare the results with those obtained using SEATS and X-11. 
+- How are they different?
+```{r message=FALSE, warning=FALSE}
+canadian_gas%>%
+   filter(year(Month) >= 1975) %>%
+   autoplot(Volume)
+```
+
+```{r message=FALSE, warning=FALSE}
+canadian_gas%>%
+   gg_subseries(y = Volume) 
+```
+
+
+```{r message=FALSE, warning=FALSE}
+canadian_gas%>%
+   gg_season(y = Volume)
+```
+
+
+#### STL Decomposition
+
+Window greater than 1975
+```{r}
+dcmp_canadian_gas_w <- canadian_gas %>%
+  filter(year(Month) >= 1975) %>%
+ model(stl = STL(Volume))
+```
+
+```{r}
+components(dcmp_canadian_gas_w) %>%
+  autoplot()+
+  ggthemes::theme_pander()
+```
+Full
+```{r}
+dcmp_canadian_gas <- canadian_gas %>%
+ model(stl = STL(Volume))
+components(dcmp_canadian_gas) %>%
+  autoplot()+
+  ggthemes::theme_pander()
+```
+
+#### X11
+```{r}
+x11_dcmp_canadian_gas_w <- canadian_gas %>%
+  filter(year(Month) >= 1975) %>%
+  model(x11 = X_13ARIMA_SEATS(Volume ~ x11())) %>%
+  components()
+
+
+autoplot(x11_dcmp_canadian_gas_w) +
+  labs(title =
+    "Decomposition of Canadian gas volume using X-11.")+
+  ggthemes::theme_pander()
+```
+
+
+#### SEATS
+```{r}
+seats_dcmp_canadian_gas_w <- canadian_gas %>%
+  filter(year(Month) >= 1975) %>%
+ model(seats = X_13ARIMA_SEATS(Volume ~ seats())) %>%
+  components()
+
+
+autoplot(seats_dcmp_canadian_gas_w) +
+  labs(title =
+    "Decomposition of Canadian gas volume using SEATS.")+
+  ggthemes::theme_pander()
+
+```
 
 
 ## Further reading
