@@ -2,12 +2,147 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+- Learn how to apply NAIVE(y), SNAIVE(y) or RW(y ~ drift()) appropriately
 
-## SLIDE 1
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+## EXRCISE 1
+
+Produce forecasts for the following series using whichever of NAIVE(y), SNAIVE(y) or RW(y ~ drift()) is more appropriate in each case:
+
+- Australian Population (global_economy)
+- Bricks (aus_production)
+- NSW Lambs (aus_livestock)
+- Household wealth (hh_budget)
+- Australian takeaway food turnover (aus_retail)
+
+
+```{r message=FALSE,warning=FALSE}
+library(fpp3)
+```
+
+
+### Australian Population (global_economy)
+```{r}
+
+data(global_economy)
+
+df <- global_economy %>%
+  filter(Country=="Australia") %>%
+  mutate(GDP_pop=GDP/Population)
+
+df%>%head
+```
+
+```{r}
+df %>%
+  autoplot(Population)
+```
+
+```{r}
+
+df %>% 
+  select(Population,GDP_pop)%>%
+  scale()%>%
+  as_data_frame()%>%
+  cbind(Year2=df$Year)%>%
+  ggplot(aes(Year2,Population))+
+  geom_point(shape=21,stroke=0.5)+
+  geom_line()+
+  geom_smooth(method = 'loess', se = FALSE, color = 'red',linewidth=0.3) + 
+  geom_line(aes(Year2,GDP_pop))+
+  scale_x_continuous(n.breaks = 10)+
+  geom_text(aes(x=c(1990), y=c(0.5), label="Pop"),color="red")+
+  geom_text(aes(x=c(2005), y=c(2.5), label="GDP/Pop"))+
+  labs(title="Australian Population and GDP/Population")+
+  theme_bw()
+```
+
+```{r}
+df %>%
+  model(
+    `Naïve` = NAIVE(Population),
+    `Seasonal naïve` = SNAIVE(Population),
+    Drift = RW(log(Population) ~ drift())
+  ) %>%
+    forecast(h = c(10,20)) %>%
+    autoplot(df |> filter(!is.na(Population)),
+    point_forecast = lst(mean, median)
+  )
+```
+```{r}
+fit_pop_naive <- df %>%
+  model( `Naïve` = NAIVE(Population))
+```
+
+```{r}
+fit_pop_naive |> gg_tsresiduals()
+```
+```{r}
+fit_pop_drift <- df %>%
+  model(Drift = RW(log(Population) ~ drift()))
+  
+
+fit_pop_drift |> gg_tsresiduals()
+```
+
+
+### Bricks (aus_production)
+```{r}
+data(aus_production)
+aus_production%>%head
+```
+
+
+```{r}
+aus_production%>%
+  autoplot(Bricks)
+```
+
+
+```{r}
+bricks_fit <- aus_production |>
+  model(
+    Mean = MEAN(Bricks),
+    `Naïve` = NAIVE(Bricks),
+    `Seasonal naïve` = SNAIVE(Bricks),
+    Drift = RW(Bricks ~ drift())
+  )
+
+bricks_fc <- bricks_fit |>
+  forecast(h = 10)
+
+bricks_fc |>
+  autoplot(
+    aus_production,
+    level = NULL
+  ) +
+  labs(
+    y = "",
+    title = "Forecasts for quarterly Bricks production"
+  ) +
+  guides(colour = guide_legend(title = "Forecast"))
+```
+
+### NSW Lambs (aus_livestock)
+```{r}
+data(aus_livestock)%>%head
+```
+
+
+### Household wealth (hh_budget)
+```{r}
+data(hh_budget)%>%head
+```
+
+
+### Australian takeaway food turnover (aus_retail)
+```{r}
+data(aus_retail)%>%head
+```
+
+
+
+
 
 ## Meeting Videos
 
