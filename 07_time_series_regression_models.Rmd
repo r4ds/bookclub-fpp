@@ -2,15 +2,350 @@
 
 **Learning objectives:**
 
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
+-   use regression models for time series
 
-## SLIDE 1
+## Linear Regression Model
 
-- ADD SLIDES AS SECTIONS (`##`).
-- TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+Model: $y_t=\beta_0+\beta_1x_t+\epsilon_t$
+
+$\beta_0$ is the **intercept** $\beta_1$ is the **slope**
+
+```{r message=FALSE,warning=FALSE}
+library(tidyverse)
+library(fpp3)
+```
+
+```{r}
+set.seed(123)
+
+# Generate x values
+x <- seq(0, 5, length.out = 100)
+# Generate y values with a positive linear slope
+# y <- 2*x + rnorm(100, mean = 5, sd = 8)
+y <-  2*x + 3*x^2 + rnorm(100, mean = 0, sd = 20)
+
+df <- tibble(x,y)
+
+
+df %>%
+  ggplot(aes(x,y))+
+  geom_point()+
+  geom_smooth(method="lm")
+```
+
+## US consumption expenditure
+
+Time series of quarterly percentage changes (growth rates) of real personal consumption expenditure
+
+```{r}
+us_change |>
+  pivot_longer(c(Consumption, Income), names_to="Series") |>
+  autoplot(value) +
+  labs(y = "% change")
+```
+
+```{r}
+mean(us_change$Consumption)
+```
+
+```{r}
+fit <- lm(Consumption~Income, data=us_change)
+fit
+```
+
+```{r}
+us_change |>
+  ggplot(aes(x = Income, y = Consumption)) +
+  labs(y = "Consumption (quarterly % change)",
+       x = "Income (quarterly % change)") +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+us_change |>
+  model(TSLM(Consumption ~ Income)) |>
+  report()
+```
+
+## Multiple Linear Regression Model
+
+Model: $y_t=\beta_0+\beta_1x_{1,t}+\beta_2x_{2,t}+...+\beta_kx_{k,t}+\epsilon_t$
+
+$\beta_0$ is the **intercept** $\beta_k$ are the **slopes**
+
+```{r}
+us_change |>
+  pivot_longer(c(-Consumption,-Quarter)) |> # count(name)
+  ggplot(aes(value, Consumption, colour = name)) +
+  geom_point(shape=21,stroke=0.5,fill="white") +
+  geom_smooth(method = "lm",linewidth=0.5,fill="grey80")+
+  facet_wrap(~name, scales = "free") +
+  theme(legend.position = "none")
+```
+
+```{r}
+fit_m <- lm(Consumption ~ Income+Production+Savings+Unemployment,data=us_change)
+
+fit_m%>%summary()
+```
+
+## Least squares estimation
+
+**"fitting" the model to the data, or sometimes "learning" or "training" the model.**
+
+> "The least squares principle provides a way of choosing the coefficients effectively by minimizing the sum of the squared errors." The Author
+
+Formula: $\sum_{t=1}^T{\epsilon_t^2}=\sum_{t=1}^T{(y_t-\beta_0+\beta_1x_{1,t}+\beta_2x_{2,t}+...+\beta_kx_{k,t}+\epsilon_t)^2}$
+
+$$\sum{\epsilon^2}=\sum{(Y-\beta X)^2}$$
+
+```{r}
+fit_consMR <- us_change |>
+  model(tslm = TSLM(Consumption ~ Income + Production +
+                                    Unemployment + Savings))
+```
+
+```{r}
+augment(fit_consMR)[3:5]%>%head
+```
+
+```{r}
+augment(fit_consMR) |>
+  ggplot(aes(x = Consumption, y = .fitted)) +
+  geom_point(shape=21,stroke=0.5,fill="grey80") +
+  labs(
+    y = "Fitted (predicted values",
+    x = "Consumption observed values)",
+    title = "Percent change in US consumption expenditure"
+  ) +
+  geom_abline(intercept = 0, slope = 1)
+```
+
+**To summarise how well a linear regression model fits the data** is via $R^2$ the coefficient of determination.
+
+The square of the correlation between the observed $y$ values and the predicted $\hat{y}$ values, ranges between 0 and 1.
+
+$$R^2=\frac{\sum{(\hat{y_t}-\bar{y})^2}}{\sum{(y_t-\bar{y})^2}}$$
+
+**Residual standard error** measure of how well the model has fitted the data.
+
+$$\hat{\sigma}_e=\sqrt{\frac{1}{T-k-1}\sum_{t=1}^T{e_t^2}}$$ $k$ is the number of predictors
+
+```{r}
+us_change |>
+  left_join(residuals(fit_consMR), by = "Quarter") |>
+  pivot_longer(Income:Unemployment,
+               names_to = "regressor", values_to = "x") |>
+  ggplot(aes(x = x, y = .resid)) +
+  geom_point() +
+  facet_wrap(. ~ regressor, scales = "free_x") +
+  labs(y = "Residuals", x = "")
+```
+
+```{r}
+augment(fit_consMR) |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() + labs(x = "Fitted", y = "Residuals")
+```
+
+### Example
+
+```{r}
+recent_production <- aus_production |>
+  filter(year(Quarter) >= 1992)
+
+
+fit_beer <- recent_production |>
+  model(TSLM(Beer ~ trend() + season()))
+```
+
+```{r}
+augment(fit_beer) |>
+  ggplot(aes(x = Quarter)) +
+  geom_line(aes(y = Beer, colour = "Data")) +
+  geom_line(aes(y = .fitted, colour = "Fitted")) +
+  scale_colour_manual(
+    values = c(Data = "black", Fitted = "#D55E00")
+  ) +
+  labs(y = "Megalitres",
+       title = "Australian quarterly beer production") +
+  guides(colour = guide_legend(title = "Series"))
+```
+
+```{r}
+augment(fit_beer) |>
+  ggplot(aes(x = Beer, y = .fitted,
+             colour = factor(quarter(Quarter)))) +
+  geom_point() +
+  labs(y = "Fitted", x = "Actual values",
+       title = "Australian quarterly beer production") +
+  geom_abline(intercept = 0, slope = 1) +
+  guides(colour = guide_legend(title = "Quarter"))
+```
+
+#### With transformation
+
+    fourier()
+
+The maximum allowed is $K=m/2$ where $m$ is the seasonal period.
+
+```{r}
+fourier_beer <- recent_production |>
+  model(TSLM(Beer ~ trend() + fourier(K = 1)))
+```
+
+```{r}
+augment(fourier_beer) |>
+  ggplot(aes(x = Quarter)) +
+  geom_line(aes(y = Beer, colour = "Data")) +
+  geom_line(aes(y = .fitted, colour = "Fitted")) +
+  scale_colour_manual(
+    values = c(Data = "black", Fitted = "#D55E00")
+  ) +
+  labs(y = "Megalitres",
+       title = "Australian quarterly beer production") +
+  guides(colour = guide_legend(title = "Series"))
+
+augment(fourier_beer) |>
+  ggplot(aes(x = Beer, y = .fitted,
+             colour = factor(quarter(Quarter)))) +
+  geom_point() +
+  labs(y = "Fitted", x = "Actual values",
+       title = "Australian quarterly beer production") +
+  geom_abline(intercept = 0, slope = 1) +
+  guides(colour = guide_legend(title = "Quarter"))
+
+```
+
+## Exercises
+
+1.  Data is from `vic_elec` Australia January 2014 electricity demand and maximum temperatures.
+
+```{r}
+jan14_vic_elec <- vic_elec |>
+  filter(yearmonth(Time) == yearmonth("2014 Jan")) |>
+  tsibble::index_by(Date = as_date(Time)) |>
+  summarise(
+    Demand = sum(Demand),
+    Temperature = max(Temperature)
+  )
+
+jan14_vic_elec%>%head
+```
+
+-   Plot the data and find the regression model for Demand with temperature as a predictor variable. Why is there a positive relationship?
+
+```{r}
+ggplot(jan14_vic_elec,aes(x=Temperature,y=Demand))+
+  geom_point()+
+  geom_smooth(method = "lm")
+```
+
+-   Produce a residual plot. Is the model adequate? Are there any outliers or influential observations?
+
+```{r}
+jan14_vic_elec%>%
+  autoplot()+
+  geom_smooth()
+```
+
+-   Use the model to forecast the electricity demand that you would expect for the next day if the maximum temperature was 15∘C and compare it with the forecast if the with maximum temperature was 35∘C. Do you believe these forecasts? The following R code will get you started:
+
+```{r}
+jan14_vic_elec |>
+  model(TSLM(Demand ~ Temperature)) |>
+  forecast(
+    new_data(jan14_vic_elec, 1) |>
+      mutate(Temperature = 15)
+  ) |>
+  autoplot(jan14_vic_elec)
+```
+```{r}
+fcst_vic_elec_jan14_15 <- jan14_vic_elec %>% 
+     model(tslm = TSLM(Demand ~ Temperature)) %>% 
+     forecast(
+          new_data(jan14_vic_elec, 1) %>% 
+               mutate(Temperature = 15)
+     ) 
+
+fcst_vic_elec_jan14_15 %>% 
+     autoplot()
+
+fcst_vic_elec_jan14_15$Demand[1]
+
+# Source: https://robjhyndman.com/hyndsight/fable/
+# 80% prediction intervals
+hilo(fcst_vic_elec_jan14_15, level = 80)
+
+# 95% prediction intervals
+hilo(fcst_vic_elec_jan14_15, level = 95)
+
+# forecast next day with maximum temperature = 35 degrees Celsius
+jan14_vic_elec %>% 
+     model(tslm = TSLM(Demand ~ Temperature)) %>% 
+     forecast(
+          new_data(jan14_vic_elec, 1) %>% 
+               mutate(Temperature = 35)
+     ) %>% 
+     autoplot()
+```
+
+
+-   Give prediction intervals for your forecasts.
+
+```{r}
+vic_elec %>% 
+     filter(yearmonth(Time) == yearmonth("2014 Feb")) %>% 
+     index_by(Date = as_date(Time)) %>% 
+     summarise(
+          Demand = sum(Demand), 
+          Temperature = max(Temperature) # select maximum temperature
+     ) %>% 
+     slice(1)
+
+# forecast demand for maximum temperature = 15 degrees Celsius --> 151,398 (mean)
+# forecast demand for maximum temperature = 35 degrees Celsius --> 274,484 (mean)
+# actual demand for Feb 1, 2014 --> 241,283 with maximum temperature of 29.2 degrees Celsius
+```
+
+
+-   Plot Demand vs Temperature for all of the available data in vic_elec aggregated to daily total demand and maximum temperature. What does this say about your model?
+
+
+```{r}
+vic_elec %>% 
+     select(Date, Demand, Temperature) %>% 
+     index_by(Date) %>% 
+     summarise(
+          Demand = sum(Demand), 
+          Temperature = max(Temperature) # select maximum temperature
+     ) %>% 
+     mutate(
+          Demand = scale(Demand), 
+          Temperature = scale(Temperature)
+     ) %>% 
+     pivot_longer(c(Demand, Temperature), names_to = 'Series') %>%
+     autoplot(value) + 
+     labs(x = NULL, 
+          y = 'Value', 
+          title = 'Victoria 2014 Electricity Daily Demand vs. Maximum Temperature (scaled)')
+```
+
+
+```{r}
+fit_trends <- jan14_vic_elec |>
+  model(
+    linear = TSLM(Demand ~ trend()),
+    exponential = TSLM(log(Demand) ~ trend()),
+    piecewise = TSLM(Demand ~ trend(knots = c(1950, 1980)))
+  )
+fc_trends <- fit_trends |> forecast(h = 10)
+```
 
 ## Meeting Videos
 
+````{=html}
 <!--
 ### Cohort 2
 
@@ -24,3 +359,4 @@ LOG
 ```
 </details>
 -->
+````
