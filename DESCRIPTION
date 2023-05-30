@@ -24,4 +24,8 @@ Imports:
     slider,
     seasonal,
     forecast,
-    patchwork
+    patchwork,
+    fable,
+    tsibbledata,
+    purrr,
+    gganimate
