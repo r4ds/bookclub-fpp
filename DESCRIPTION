@@ -25,6 +25,7 @@ Imports:
     seasonal,
     forecast,
     patchwork,
+    plotly,
     fable,
     tsibbledata,
     purrr,
