@@ -1,5 +1,10 @@
 # Getting started
 
+```{r 01libraries, include = FALSE}
+library(fpp3)
+suppressMessages(library(tidyverse))
+```
+
 **Learning objectives:**
 
 - THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
