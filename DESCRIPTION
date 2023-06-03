@@ -1,31 +1,29 @@
 Package: bookclub-fpp
 Title: Forecasting: Principles and Practice Book Club
 Version: 0.0.1
-Authors@R: c(
-  person(
-    "R4DS Online Learning Community",
-    email = "rfordatasci@gmail.com",
-    role = c("aut", "cre", "cph")
-  )
-  )
-URL: https://r4ds.github.io/bookclub-fpp, https://github.com/r4ds/bookclub-fpp
+Authors@R: 
+    person("R4DS Online Learning Community", , , "rfordatasci@gmail.com", role = c("aut", "cre", "cph"))
+URL: https://r4ds.github.io/bookclub-fpp,
+    https://github.com/r4ds/bookclub-fpp
 Depends:
     R (>= 3.1.0)
 Imports: 
     bookdown,
-    rmarkdown,
-    tidyverse,
-    fpp3,
     broom,
-    glue,
-    GGally,
-    latex2exp,
-    ggthemes,
-    slider,
-    seasonal,
-    forecast,
-    patchwork,
     fable,
-    tsibbledata,
+    fabletools,
+    forecast,
+    fpp3,
+    GGally,
+    gganimate,
+    ggthemes,
+    glue,
+    latex2exp,
+    patchwork,
     purrr,
-    gganimate
+    rmarkdown,
+    seasonal,
+    slider,
+    tidyverse,
+    tsibbledata
+Encoding: UTF-8

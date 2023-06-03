@@ -27,7 +27,7 @@ $$SSE=\sum_{t=1}^T(y_t-\hat{y}_{t|t-1})^2=\sum_{t=1}^T{e_t^2}$$
 
 $e_t=y_y-\hat{y}_{t|t-1}$
 
-```{r message=FALSE,warning=FALSE}
+```{r 08_01, message=FALSE,warning=FALSE}
 library(fpp3)
 
 algeria_economy <- global_economy |>
@@ -39,7 +39,7 @@ algeria_economy |>
   labs(y = "% of GDP", title = "Exports: Algeria")
 ```
 
-```{r}
+```{r 08_02}
 # Estimate parameters
 fit <- algeria_economy |>
   model(ETS(Exports ~ error("A") + trend("N") + season("N")))
@@ -47,11 +47,11 @@ fit <- algeria_economy |>
 
 Parameter estimates
 
-```{r}
+```{r 08_03}
 fit%>%coef()
 ```
 
-```{r}
+```{r 08_04}
 tb <- fit%>%augment()
 tb[1:59,] %>%
   rename(Level=".fitted")%>%
@@ -62,12 +62,12 @@ tb[1:59,] %>%
   select(Year,Time,Observation,Level,Forecast)%>%head
 ```
 
-```{r}
+```{r 08_05}
 fc <- fit |>
   forecast(h = 5)
 ```
 
-```{r}
+```{r 08_06}
 fit |>
   forecast(h = 5) |>
   autoplot(algeria_economy) +
@@ -83,7 +83,7 @@ Seasonality, on the other hand, refers to the pattern of regular fluctuations in
 
 In summary, trend represents the long-term direction of a time series, while seasonality represents the regular fluctuations that occur at fixed intervals of time. Understanding the trend and seasonality of a time series is important for forecasting and modeling purposes, as it can help to identify the underlying patterns and behavior of the data.
 
-```{r message=FALSE,warning=FALSE}
+```{r 08_07, message=FALSE,warning=FALSE}
 #| echo: false
 #| 
 library(fable)
@@ -103,7 +103,7 @@ for (alpha in alpha_range) {
 ```
 
 
-```{r message=FALSE,warning=FALSE}
+```{r 08_08, message=FALSE,warning=FALSE}
 library(purrr)
 pred <-
   map2_dfr(fits, 
@@ -115,7 +115,7 @@ pred <-
 pred <- pred %>% as_tibble()
 ```
 
-```{r message = FALSE, warning = FALSE, eval = FALSE}
+```{r 08_09, message = FALSE, warning = FALSE, eval = FALSE}
 library(gganimate)
 p <- algeria_economy |>
   autoplot(Exports) +
@@ -130,7 +130,7 @@ p <- algeria_economy |>
 labs(y="Exports",color="Alpha") 
 ```
 
-```{r echo=FALSE, eval = FALSE}
+```{r 08_10, echo=FALSE, eval = FALSE}
 anim <- animate(p)
 anim_save("images/ch_8_transition.gif", anim)
 ```
@@ -139,16 +139,16 @@ anim_save("images/ch_8_transition.gif", anim)
 ![Alt Text](images/ch_8_transition.gif)
 </center>
 
-```{r}
+```{r 08_11}
 components(fit) |> autoplot()
 ```
 
-```{r}
+```{r 08_12}
 components(fit) |>
   left_join(fitted(fit),by=c("Country",".model","Year"))%>%head
 ```
 
-```{r}
+```{r 08_13}
 fit |>
   forecast(h=5) |>
   autoplot(algeria_economy) +
@@ -160,7 +160,7 @@ fit |>
 
 ### Trend
 
-```{r message=FALSE,warning=FALSE}
+```{r 08_14, message=FALSE,warning=FALSE}
 library(tidyverse)
 aus_economy <- global_economy |>
   filter(Code == "AUS") |>
@@ -169,7 +169,7 @@ autoplot(aus_economy, Pop) +
   labs(y = "Millions", title = "Australian population")
 ```
 
-```{r}
+```{r 08_15}
 fit <- aus_economy |>
   model(
     AAN = ETS(Pop ~ error("A") + trend("A") + season("N"))
@@ -185,7 +185,7 @@ fc <- fit |> forecast(h = 10)
 Data set `global_economy` contains the annual `Exports` from many countries. 
 
 #### Select one country to analyse.
-```{r message=FALSE,warning=FALSE}
+```{r 08_15b, message=FALSE,warning=FALSE}
 library(fpp3)
 italy_economy <- global_economy %>%
   filter(Country=="Italy")
@@ -196,18 +196,18 @@ italy_economy %>% head
 
 #### Plot the Exports series and discuss the main features of the data.
 
-```{r}
+```{r 08_16}
 italy_economy |>
   autoplot(Exports) +
   labs(y = "Exports", title = "Exports: Italy")
 ```
-```{r}
+```{r 08_16b}
 italy_economy%>%
   tail()
 ```
 
 #### Use an ETS(A,N,N) model to forecast the series, and plot the forecasts.
-```{r}
+```{r 08_17}
 # Estimate parameters
 fit <- italy_economy |>
   model(ETS(Exports ~ error("A") + trend("N") + season("N")))
@@ -217,7 +217,7 @@ fc <- fit |>
 ```
 
 
-```{r}
+```{r 08_18}
 fc |>
   autoplot(italy_economy) +
   geom_line(aes(y = .fitted), col="purple",
@@ -229,40 +229,40 @@ fc |>
 
 #### Compute the RMSE values for the training data.
 
-```{r}
+```{r 08_19}
 italy_economy %>%
   as_tsibble() 
 ```
-```{r}
+```{r 08_20}
 italy_economy %>%
   model(ETS(Exports ~ error("A") + trend("N") + season("N"))) |>
-    accuracy()
+    fabletools::accuracy()
 ```
 
 
-```{r}
+```{r 08_21}
 italy_economy %>%
   as_tsibble() %>% 
   # Perform stretching windows on a tsibble by row
   stretch_tsibble(.init = 10)  |>
   model(ETS(Exports ~ error("A") + trend("N") + season("N"))) |>
     forecast(h = 1) |>
-    accuracy(italy_economy) 
+    fabletools::accuracy(italy_economy) 
 ```
 
 
 #### Compare the results to those from an ETS(A,A,N) model. 
 
-```{r}
+```{r 08_22}
 italy_economy %>%
   model(ETS(Exports ~ error("A") + trend("N") + season("N")),
         ETS(Exports ~ error("A") + trend("A") + season("N"))) |>
-    accuracy()%>%
+    fabletools::accuracy()%>%
   select(.model,.type,RMSE)
 ```
 
 
-```{r}
+```{r 08_23}
 italy_economy |>
   as_tsibble() |>
   # Perform stretching windows on a tsibble by row
@@ -271,7 +271,7 @@ italy_economy |>
         Holt = ETS(Exports ~ error("A") + trend("A") + season("N")),
         Damped = ETS(Exports ~ error("A") + trend("Ad") + season("N")))|>
     forecast(h = 1) |>
-    accuracy(italy_economy) 
+    fabletools::accuracy(italy_economy) 
 ```
 
 (Remember that the trended model is using one more parameter than the simpler model.) 
@@ -281,7 +281,7 @@ Discuss the merits of the two forecasting methods for this data set.
 #### Compare the forecasts from both methods. 
 
 Which do you think is best?
-```{r}
+```{r 08_24}
 fit <- italy_economy |>
   model(
     SES = ETS(Exports ~ error("A") + trend("N") + season("N")),
@@ -297,7 +297,7 @@ fc |>
   guides(colour = guide_legend(title = "Forecast"))
 ```
 
-```{r}
+```{r 08_25}
 italy_economy |>
   model(
     SES = ETS(Exports ~ error("A") + trend("N") + season("N")),
@@ -312,14 +312,14 @@ italy_economy |>
 
 
 Calculate a 95% prediction interval for the first forecast for each model, using the RMSE values and assuming normal errors. 
-```{r}
+```{r 08_26}
 fit |>
   forecast(h = 1) |>
   autoplot(italy_economy) +
   labs(x="Year", y="Exports",
        title = "Italian Exports")
 ```
-```{r}
+```{r 08_26b}
 fit |>
   forecast(h = 1)
 ```
@@ -333,7 +333,7 @@ $$\hat{y}_{T+h|T} \pm 1.96 \hat{\sigma}_h$$
 
 
 
-```{r}
+```{r 08_27}
 italy_economy |>
   model(
     SES = ETS(Exports ~ error("A") + trend("N") + season("N")),
@@ -344,13 +344,8 @@ italy_economy |>
 ```
 
 
-
-
-
 ## Meeting Videos
 
-````{=html}
-<!--
 ### Cohort 2
 
 `r knitr::include_url("https://www.youtube.com/embed/URL")`
@@ -362,5 +357,3 @@ italy_economy |>
 LOG
 ```
 </details>
--->
-````
