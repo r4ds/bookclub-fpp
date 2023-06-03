@@ -112,10 +112,10 @@ pred <-
                          mutate(alpha = .y))) %>%
   select(Year,Exports,.fitted,alpha)
 
-pred <- pred%>%as_tibble()
+pred <- pred %>% as_tibble()
 ```
 
-```{r message=FALSE,warning=FALSE}
+```{r message = FALSE, warning = FALSE, eval = FALSE}
 library(gganimate)
 p <- algeria_economy |>
   autoplot(Exports) +
@@ -130,7 +130,7 @@ p <- algeria_economy |>
 labs(y="Exports",color="Alpha") 
 ```
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval = FALSE}
 anim <- animate(p)
 anim_save("images/ch_8_transition.gif", anim)
 ```
