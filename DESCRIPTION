@@ -20,6 +20,7 @@ Imports:
     glue,
     latex2exp,
     patchwork,
+    plotly,
     purrr,
     rmarkdown,
     seasonal,
