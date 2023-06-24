@@ -217,8 +217,137 @@ insurance %>%
 ```
 
 
+## Forecast with different levels of TVadverts
+
+Set new data to 20 year-month period time-frame:
+```{r eval=FALSE}
+new_data(insurance, 20)
+```
 
 
+Sample `TVadverts` ranging from 7 to 10:
+```{r}
+set.seed(1234)
+sample <- sample(7:10,20,replace=T)
+```
+
+
+Create a newdata with sampled TVadverts:
+```{r}
+insurance_future2 <- new_data(insurance, 20) |>
+  mutate(TVadverts = sample)
+insurance_future2%>%head
+```
+
+Fit the model on sampled TVadverts and plot it:
+```{r}
+fit_best |>
+  forecast(insurance_future2) |>
+  autoplot(insurance) +
+  labs(
+    y = "Quotes",
+    title = "Forecast quotes with future advertising\nset to a sample size from 7 to 10"
+  )
+```
+
+Now create a new data with 4 models each with 7,8,9,10 TVadverts:
+```{r}
+insurance_future_7 <- new_data(insurance, 20) |>
+  mutate(TVadverts = 7)
+insurance_future_8 <- new_data(insurance, 20) |>
+  mutate(TVadverts = 8)
+insurance_future_9 <- new_data(insurance, 20) |>
+  mutate(TVadverts = 9)
+insurance_future_10 <- new_data(insurance, 20) |>
+  mutate(TVadverts = 10)
+
+fit_df_7 <- fit_best |>
+  forecast(insurance_future_7)
+fit_df_8 <- fit_best |>
+  forecast(insurance_future_8)
+fit_df_9 <- fit_best |>
+  forecast(insurance_future_9)
+fit_df_10 <- fit_best |>
+  forecast(insurance_future_10)
+
+
+fit_df_8 <- fit_df_8[2:5]%>%
+  rename(TVadverts_8=TVadverts,
+         Quotes_8=Quotes,
+         .mean_8=.mean)
+fit_df_9<- fit_df_9[2:5]%>%
+  rename(TVadverts_9=TVadverts,
+         Quotes_9=Quotes,
+         .mean_9=.mean)
+fit_df_10<- fit_df_10[2:5]%>%
+  rename(TVadverts_10=TVadverts,
+         Quotes_10=Quotes,
+         .mean_10=.mean)
+```
+
+
+Create new data on those models, 
+```{r}
+df <- fit_df_7[2:5] %>%
+  left_join(fit_df_8, by = "Month") %>%
+  left_join(fit_df_9, by = "Month") %>%
+  left_join(fit_df_10, by = "Month") %>%
+  
+  pivot_longer(
+    cols = contains("TVadverts"),
+    names_to = "TVadverts_num",
+    values_to = "TVadverts"
+  ) %>%
+  pivot_longer(cols = contains(".mean"),
+               names_to = "mean_num",
+               values_to = ".mean") %>%
+  pivot_longer(cols = contains("Quotes"),
+               names_to = "Quotes_num",
+               values_to = "Quotes") %>%
+  distinct() %>%
+  arrange(Month)
+
+df %>% head
+```
+And plot it:
+```{r}
+ggplot() +
+  geom_ribbon(
+    data = fit_best_df2_int,
+    mapping = aes(x = Month, ymin = conf_down2, ymax = conf_up2),
+    fill = "blue",
+    alpha = 0.4
+  ) +
+  geom_ribbon(
+    data = fit_best_df2_int,
+    mapping = aes(x = Month, ymin = conf_down, ymax = conf_up),
+    fill = "blue",
+    alpha = 0.2
+  ) +
+  geom_line(data = insurance, mapping = aes(x = Month, y = Quotes)) +
+  geom_line(
+    data = df,
+    mapping = aes(
+      x = Month,
+      y = .mean,
+      group = mean_num,
+      color = mean_num
+    )
+  ) +
+  scale_color_discrete(
+    breaks = c(".mean_10",
+               ".mean_9",
+               ".mean_8",
+               ".mean"),
+    label = c(
+      ".mean" = "7",
+      ".mean_8" = "8",
+      ".mean_9" = "9",
+      ".mean_10" = "10"
+    ),
+    name = "TVadverts level"
+  )
+```
 
 ## Meeting Videos
 
