@@ -241,6 +241,13 @@ insurance_future2%>%head
 
 Fit the model on sampled TVadverts and plot it:
 ```{r}
+fit_best <- insurance |>
+  model(ARIMA(Quotes ~ pdq(d = 0) +
+              TVadverts + lag(TVadverts)))
+report(fit_best)
+```
+
+```{r}
 fit_best |>
   forecast(insurance_future2) |>
   autoplot(insurance) +
@@ -285,6 +292,32 @@ fit_df_10<- fit_df_10[2:5]%>%
          .mean_10=.mean)
 ```
 
+
+```{r}
+insurance_future <- new_data(insurance, 20) |>
+  mutate(TVadverts = 8)
+```
+
+```{r}
+fit_best_df<-  fit_best |>
+  forecast(insurance_future) %>%
+  hilo()
+```
+
+```{r}
+fit_best_df2 <- fit_best_df[2:7]%>%
+  mutate(conf_down=as.numeric(sub(".*?(\\d+\\.\\d+).*", "\\1", `80%`)),
+         conf_up=as.numeric(sub(".*\\b(\\d+\\.\\d+).*", "\\1", `80%`)),
+         conf_down2=as.numeric(sub(".*?(\\d+\\.\\d+).*", "\\1", `95%`)),
+         conf_up2=as.numeric(sub(".*\\b(\\d+\\.\\d+).*", "\\1", `95%`)))%>%
+  select(-`80%`,-`95%`)
+```
+
+
+```{r}
+fit_best_df2_int <- fit_best_df2 %>%
+  full_join(insurance%>%select(Month,Quotes),by="Month") 
+```
 
 Create new data on those models, 
 ```{r}
