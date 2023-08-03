@@ -343,7 +343,7 @@ fc3 |> autoplot(cement)
 
 ```{r}
 fc3 |> 
-  accuracy(cement)
+  fabletools::accuracy(cement)
 ```
 
 
