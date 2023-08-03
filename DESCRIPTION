@@ -11,6 +11,7 @@ Imports:
     bookdown,
     broom,
     fable,
+    fable.prophet,
     fabletools,
     forecast,
     fpp3,
