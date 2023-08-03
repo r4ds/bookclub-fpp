@@ -161,9 +161,6 @@ fc_with_times |>
 ```
 
 Apply **Fourier** for `multiple seasonalities`: fit a dynamic harmonic regression model with an ARIMA error structure.
-```{r echo=FALSE}
-doParallel::registerDoParallel()
-```
 
 
 ```{r eval=FALSE}
