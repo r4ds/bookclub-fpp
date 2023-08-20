@@ -162,16 +162,19 @@ data(aus_retail)%>%head
 </details>
 
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/8uwXytWn5HU")`
+
+`r knitr::include_url("https://www.youtube.com/embed/gDqmMd9x2FA")`
+
+`r knitr::include_url("https://www.youtube.com/embed/-RghEM6seGU")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:12:41	Ricardo Serrano: Random walk definition https://www.quantstart.com/articles/White-Noise-and-Random-Walks-in-Time-Series-Analysis/#:~:text=A%20random%20walk%20is%20another,random%20step%20up%20or%20down.
+00:12:58	Ricardo Serrano: IS your time series a random walk https://machinelearningmastery.com/gentle-introduction-random-walk-times-series-forecasting-python/#:~:text=A%20random%20walk%20is%20one,in%20stock%20prices%20are%20unpredictable.
 ```
 </details>
--->

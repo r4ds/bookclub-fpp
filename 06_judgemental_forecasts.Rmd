@@ -8,19 +8,3 @@
 
 - ADD SLIDES AS SECTIONS (`##`).
 - TRY TO KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
-
-## Meeting Videos
-
-<!--
-### Cohort 2
-
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
-
-<details>
-<summary> Meeting chat log </summary>
-
-```
-LOG
-```
-</details>
--->

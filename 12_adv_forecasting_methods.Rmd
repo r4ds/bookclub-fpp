@@ -613,16 +613,8 @@ au_cement |>
 
 ## Meeting Videos
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/elZyTkm7mvY")`
 
-<details>
-<summary> Meeting chat log </summary>
-
-```
-LOG
-```
-</details>
--->
+`r knitr::include_url("https://www.youtube.com/embed/Pnt7dZysB0w")`

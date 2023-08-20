@@ -348,12 +348,16 @@ italy_economy |>
 
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/7swQftTn8pg")`
+
+`r knitr::include_url("https://www.youtube.com/embed/6w3FF_ZTrgY")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:34:11	Ricardo Serrano:	https://www.encora.com/insights/exponential-smoothing-methods-for-time-series-forecasting
 ```
 </details>
+
+`r knitr::include_url("https://www.youtube.com/embed/ByZgZM7Vt_k")`

@@ -11,7 +11,7 @@ As we read, we are producing [notes about the book](https://r4ds.io/fpp).
 If you would like to present, please see the sign-up sheet for your cohort (linked below, and pinned in the [#book_club-fpp](https://rfordatascience.slack.com/archives/C03CXSNDVJM) channel on Slack)!
 
 - Cohort 1 (ended 2022-08-29 in Chapter 5): [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGiw2WcRTHAhBBwzlFB8YoC3)
-- [Cohort 2](https://docs.google.com/spreadsheets/d/1SA-2MInQ2eO_6Pw9z8dFuhEkp7DVEczkF1t1n4sN7sU/edit?usp=sharing) (started 2022-12-02): [Fridays, 13:00 CST/CDT](https://www.timeanddate.com/worldclock/converter.html?iso=20221202T190000&p1=179&p2=24&p3=1440) | [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGjPcvxmWqvKqpmInYhpheTT)
+- Cohort 2 (started 2022-12-02, ended 2023-08-18): [meeting videos](https://www.youtube.com/playlist?list=PL3x6DOfs2NGjPcvxmWqvKqpmInYhpheTT)
 
 <hr>
 

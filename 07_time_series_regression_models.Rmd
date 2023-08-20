@@ -345,18 +345,36 @@ fc_trends <- fit_trends |> forecast(h = 10)
 
 ## Meeting Videos
 
-````{=html}
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/vfUURTL1WJE")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:05:56	Ricardo Serrano: https://github.com/rserran/fpp3_exercises
+00:08:22	Federica Gazzelloni: https://docs.google.com/spreadsheets/d/1SA-2MInQ2eO_6Pw9z8dFuhEkp7DVEczkF1t1n4sN7sU/edit#gid=0
 ```
 </details>
--->
-````
+
+`r knitr::include_url("https://www.youtube.com/embed/rPXM4VhXLoM")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:05:57	Ricardo Serrano:	Additional resources for time series forecasting https://robjhyndman.com/hyndsight/fable/
+00:06:13	Ricardo Serrano:	https://atsa-es.github.io/atsa-labs/
+```
+</details>
+
+`r knitr::include_url("https://www.youtube.com/embed/EsPWmgI-4UU")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:32:08	Ricardo Serrano:	https://robjhyndman.com/hyndsight/fable/
+```
+</details>
