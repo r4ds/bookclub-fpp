@@ -644,16 +644,34 @@ fc |>
 
 ## Meeting Videos
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/1PDCPb-UvnY")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:07:21	Ricardo Serrano:	https://github.com/rserran/fpp3_exercises
+00:07:47	Ricardo Serrano:	start
+00:22:37	Federica Gazzelloni:	Therapeutic Goods Administration (TGA)
+00:31:45	Federica Gazzelloni:	features {fabletools} R Documentation
+Extract features from a dataset
+00:40:17	Federica Gazzelloni:	ϕ are smoothing parameters
+01:07:45	Ricardo Serrano:	stop
 ```
 </details>
--->
+
+`r knitr::include_url("https://www.youtube.com/embed/S6uVsauhAqY")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:04:59	Federica Gazzelloni:	start
+00:58:33	Ricardo Serrano:	ARIMA(2,1,0)(1,1,1)12
+01:04:35	Federica Gazzelloni:	stop
+```
+</details>
+
+`r knitr::include_url("https://www.youtube.com/embed/tEQeKYtXTqk")`

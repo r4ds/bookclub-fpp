@@ -816,13 +816,19 @@ autoplot(seats_dcmp_canadian_gas_w) +
 
 </details>
 
-`r knitr::include_url("https://www.youtube.com/embed/J2YWrDR3fF8")`
+
+### Cohort 2
+
+`r knitr::include_url("https://www.youtube.com/embed/wq8o6U70v0w")`
 
 <details>
+<summary> Meeting chat log </summary>
 
-<summary>Meeting chat log</summary>
-
-    00:23:55    Ricardo Serrano:    https://rdrr.io/cran/fpp/man/melsyd.html
-
+```
+00:38:08	Federica Gazzelloni:	https://arxiv.org/pdf/2204.10398.pdf
+00:39:01	Federica Gazzelloni:	https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf
+01:03:58	Andres Felipe Perez:	my sound is acting up, so I'm going to log off and log back on
+```
 </details>
 
+`r knitr::include_url("https://www.youtube.com/embed/FJ7fkgIjAOk")`

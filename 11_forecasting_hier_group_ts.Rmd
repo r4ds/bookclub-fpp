@@ -11,16 +11,32 @@
 
 ## Meeting Videos
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/E22vjAlbrO0")`
+
+`r knitr::include_url("https://www.youtube.com/embed/FbcC8Rdc7Kc")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:07:18	Ricardo Serrano:	start
+00:29:25	Ricardo Serrano:	https://towardsdatascience.com/introduction-to-hierarchical-time-series-forecasting-part-i-88a116f2e2
+00:34:40	Ricardo Serrano:	https://towardsdatascience.com/optimal-forecast-reconciliation-for-hierarchical-time-series-ea892ca105a9
+01:04:44	Ricardo Serrano:	stop
 ```
 </details>
--->
+
+`r knitr::include_url("https://www.youtube.com/embed/65-BN9Fj_xU")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:06:03	Ricardo Serrano:	start
+00:23:00	Ricardo Serrano:	timetk
+00:23:42	Federica Gazzelloni:	You might need package trelliscopejs as well
+00:53:53	Federica Gazzelloni:	stop
+```
+</details>

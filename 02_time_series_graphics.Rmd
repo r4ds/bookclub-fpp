@@ -26,16 +26,21 @@
 `r knitr::include_url("https://www.youtube.com/embed/W_uQc5YSwog")`
 
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/Mcc4X-Q6k8U")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:08:11	Ricardo Serrano:	tinetk
+00:08:15	Ricardo Serrano:	tiemtk
+00:08:19	Ricardo Serrano:	timetk
+00:08:47	Federica Gazzelloni:	CRAN - Package timetk: https://cran.r-project.org/web/packages/timetk/index.html
+00:09:10	Federica Gazzelloni:	Vignette: https://cran.r-project.org/web/packages/timetk/vignettes/TK04_Plotting_Time_Series.html
+00:14:28	Federica Gazzelloni:	tsibble: https://tsibble.tidyverts.org/
 ```
 </details>
--->
+
+`r knitr::include_url("https://www.youtube.com/embed/5BXtuVJc8wc")`

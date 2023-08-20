@@ -240,6 +240,15 @@ Source: Izenman, A. J. (2008). Modern multivariate statistical techniques: Regre
 
 `r knitr::include_url("https://www.youtube.com/embed/J2YWrDR3fF8")`
 
+<details>
+<summary>Meeting chat log</summary>
+
+```
+00:23:55    Ricardo Serrano:    https://rdrr.io/cran/fpp/man/melsyd.html
+```
+</details>
+
+
 `r knitr::include_url("https://www.youtube.com/embed/oo2eX7MPJLo")`
 
 <details>
@@ -251,16 +260,8 @@ Source: Izenman, A. J. (2008). Modern multivariate statistical techniques: Regre
 </details>
 
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/-wQcwOYyEdE")`
 
-<details>
-<summary> Meeting chat log </summary>
-
-```
-LOG
-```
-</details>
--->
+`r knitr::include_url("https://www.youtube.com/embed/8uwXytWn5HU")`

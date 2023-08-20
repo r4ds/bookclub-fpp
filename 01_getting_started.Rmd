@@ -36,16 +36,48 @@ suppressMessages(library(tidyverse))
 </details>
 
 
-<!--
 ### Cohort 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/bLPbnpNtFCw")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-LOG
+00:23:47	Federica Gazzelloni:	https://otexts.com/fpp3/
+00:26:52	Ricardo Serrano:	https://github.com/robjhyndman/ETC3550Slides
+00:29:40	Abdou Daffeh:	Hey everyone!
+00:30:20	Federica Gazzelloni:	https://r4ds.github.io/bookclub-fpp/index.html
+00:30:41	Ricardo Serrano:	https://github.com/r4ds/bookclub-fpp
+00:35:17	Federica Gazzelloni:	Bookclub rwtf : https://youtu.be/nqDlyIKEjn0
+00:35:30	Abdou Daffeh:	Thanks a lot
+00:37:02	Federica Gazzelloni:	Bookclub: https://rfordatascience.slack.com/archives/C04A8GH8DNK
+00:41:36	Ricardo Serrano:	https://github.com/r4ds/bookclub-fpp
+00:42:08	Ricardo Serrano:	https://youtu.be/kAI67Sz92-s
+00:44:24	Ricardo Serrano:	https://github.com/rserran/fpp3_exercises
 ```
 </details>
--->
+
+`r knitr::include_url("https://www.youtube.com/embed/_5FA45ThP_k")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:01:55	Ricardo Serrano:	https://github.com/rserran/fpp3_exercises/tree/main/ch_1
+00:11:51	Federica Gazzelloni:	predicting
+00:12:14	Federica Gazzelloni:	prevention
+00:12:30	Federica Gazzelloni:	optimization
+00:13:06	Federica Gazzelloni:	strategy
+00:14:17	Abdou Daffeh:	Hey
+00:14:25	AndfPress:	Estimating future events by adjusting past observations to current contexts
+00:22:58	AndfPress:	Easy > Hard:
+00:22:59	Abdou Daffeh:	5,2,3,6,8,7,1,4
+00:23:00	Federica Gazzelloni:	1,5,2,6,3,8,7,4
+00:23:14	AndfPress:	2, 8, 1, 5, 3, 6, 7, 4
+00:41:34	Ricardo Serrano:	https://smallbusiness.chron.com/real-life-examples-qualitative-forecasting-72990.html
+01:04:37	Federica Gazzelloni:	Km,petrol level, car accidents, drivers gender
+01:07:16	Federica Gazzelloni:	How many cars they plan to buy in the future
+01:11:59	Federica Gazzelloni:	Thanks!
+```
+</details>
