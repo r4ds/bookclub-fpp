@@ -51,7 +51,7 @@ suppressMessages(library(tidyverse))
 00:30:41	Ricardo Serrano:	https://github.com/r4ds/bookclub-fpp
 00:35:17	Federica Gazzelloni:	Bookclub rwtf : https://youtu.be/nqDlyIKEjn0
 00:35:30	Abdou Daffeh:	Thanks a lot
-00:37:02	Federica Gazzelloni:	Bookclub: https://rfordatascience.slack.com/archives/C04A8GH8DNK
+00:37:02	Federica Gazzelloni:	Bookclub: https://dslcio.slack.com/archives/C04A8GH8DNK
 00:41:36	Ricardo Serrano:	https://github.com/r4ds/bookclub-fpp
 00:42:08	Ricardo Serrano:	https://youtu.be/kAI67Sz92-s
 00:44:24	Ricardo Serrano:	https://github.com/rserran/fpp3_exercises
